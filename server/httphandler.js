@@ -4,6 +4,8 @@ var url         = require('url'),
     Negotiator  = require('negotiator'),
     winston     = require('winston'),
     SettingsGenerator = require('./settingsgenerator.js'),
+    btoa	= require('btoa'),
+    atob	= require('atob'),
     Stats       = require('./stats.js');
 
 
@@ -164,8 +166,18 @@ function serveSettings(request, response) {
             debug = true;
         }
     }
+var auth_username;
+    if(request.headers.authorization){
+	    var auth_hdr = request.headers.authorization;
+	    auth_username = atob(auth_hdr.split(" ")[1]).split(":")[0].replace(".","_");
+	
+//	    winston.error("Username:", auth_username);
+	}else{
+	auth_username ="kiwiuser_?";
+}
 
-    SettingsGenerator.get(debug, function(err, settings) {
+    SettingsGenerator.get(debug, auth_username, function(err, settings) {
+
         if (err) {
             winston.error('Error generating settings', err);
             response.writeHead(500, 'Internal Server Error');

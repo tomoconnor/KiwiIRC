@@ -26,7 +26,9 @@
     "socksjs": "0.4.4",
     "spdy": "1.19.1",
     "uglify-js": "2.4.12",
-    "winston": "~0.7.2"
+    "winston": "~0.7.2",
+ "atob":"1.1.2",
+ "btoa":"1.1.2" 
   },
   "engines": {
     "node": ">=0.10"

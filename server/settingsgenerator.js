@@ -29,12 +29,12 @@ config.on('loaded', function () {
 
 
 
-function getSettings(debug, callback) {
+function getSettings(debug,username, callback) {
     var settings = cached_settings[debug ? 'debug' : 'production'];
 
     // Generate the settings if we don't have them cached as yet
     if (settings.settings === '') {
-        generateSettings(debug).then(function (settings) {
+        generateSettings(debug, username).then(function (settings) {
             cached_settings[debug ? 'debug' : 'production'] = settings;
             callback(null, settings);
         }, function (err) {
@@ -50,7 +50,7 @@ function getSettings(debug, callback) {
  * Generate a settings object for the client.
  * Settings include available translations, default client config, etc
  */
-function generateSettings(debug) {
+function generateSettings(debug, username_from_auth) {
     var vars = {
             server_settings: {},
             client_plugins: [],
@@ -71,7 +71,7 @@ function generateSettings(debug) {
                 port: config.get().restrict_server_port || 6667,
                 ssl: config.get().restrict_server_ssl,
                 channel: config.get().restrict_server_channel,
-                nick: config.get().restrict_server_nick,
+                nick: username_from_auth , //config.get().restrict_server_nick,
                 allow_change: false
             }
         };
