@@ -173,7 +173,7 @@ var auth_username;
 	
 //	    winston.error("Username:", auth_username);
 	}else{
-	auth_username ="kiwiuser_?";
+	auth_username ="kiwi_?";
 }
 
     SettingsGenerator.get(debug, auth_username, function(err, settings) {
